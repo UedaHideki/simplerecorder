@@ -19,7 +19,7 @@
 <dependency>
 	<groupId>org.springframework</groupId>
 	<artifactId>spring-framework-bom</artifactId>
-	<version>5.0.3.RELEASE</version>
+	<version>5.2.2.RELEASE</version>
 	<type>pom</type>
 	<scope>import</scope>
 </dependency>
@@ -35,12 +35,12 @@
 <dependency>
 	<groupId>org.springframework.security</groupId>
 	<artifactId>spring-security-web</artifactId>
-	<version>5.0.1.RELEASE</version>
+	<version>5.2.1.RELEASE</version>
 </dependency>
 <dependency>
 	<groupId>org.springframework.security</groupId>
 	<artifactId>spring-security-config</artifactId>
-	<version>5.0.1.RELEASE</version>
+	<version>5.2.1.RELEASE</version>
 </dependency>
 
 <dependency>
@@ -80,6 +80,19 @@
 	<groupId>ch.qos.logback</groupId>
 	<artifactId>logback-classic</artifactId>
 	<version>1.2.3</version>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+</dependency>
+
+
+<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.196</version>
+    <scope>runtime</scope>
 </dependency>
 
 </dependencies>
