@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
@@ -21,6 +22,11 @@ public class DBConfig {
 	@Bean(name="nt")
 	public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
 	  return new NamedParameterJdbcTemplate(dataSource());
+	}
+	
+	@Bean(name="jt")
+	public JdbcTemplate jt(DataSource ds) {
+		return new JdbcTemplate(ds);
 	}
 	
 }

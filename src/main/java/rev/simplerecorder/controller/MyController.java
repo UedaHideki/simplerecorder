@@ -12,16 +12,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import rev.simplerecorder.repository.DAOProject;
+
 @Controller
 public class MyController {
 
-@Autowired
-private NamedParameterJdbcTemplate n;
+	@Autowired
+	private NamedParameterJdbcTemplate n;
+
+	@Autowired
+	private DAOProject daoProject; 
 
    @GetMapping("/")
    public String index(Model model) {
 
       model.addAttribute("message", "Hello Spring MVC 5!こんにちは");
+      
+      int a = daoProject.countProject();
+      System.out.println(a);
       String sql="SELECT * FROM record";
      
       SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", 1);
