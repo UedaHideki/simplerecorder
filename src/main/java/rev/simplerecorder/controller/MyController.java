@@ -1,5 +1,6 @@
 package rev.simplerecorder.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import rev.simplerecorder.model.FMProject;
 import rev.simplerecorder.repository.DAOProject;
 
 @Controller
@@ -47,6 +49,15 @@ public class MyController {
    
    @GetMapping("/list")
    public String list(Model model) {
+	   
+	   List<String> listProject = daoProject.getAllProjects();
+	   List<FMProject> r2 = new ArrayList<>();
+	   for (String p : listProject) {
+		   FMProject fmproject = new FMProject();
+		   fmproject.setName(p);
+		   r2.add(fmproject);
+	   }	   
+	   model.addAttribute("fmprojects", r2);
 	   return "list";
    }
    @GetMapping("/list/project")

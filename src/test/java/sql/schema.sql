@@ -14,19 +14,6 @@ CREATE TABLE Project (
 
 ALTER TABLE Project ADD CONSTRAINT PK_Project PRIMARY KEY (id);
 
-INSERT INTO Project
-VALUES
-(  '1',
-   'UEDA',
-   'aaa',
-   'bbb2002/3/31'
-),
-(  '2',
-   'UEDA',
-   'bbb',
-   'bbb2002/3/31'
-),
-;
 
 CREATE TABLE Record (
  id INT NOT NULL,
@@ -63,4 +50,19 @@ ALTER TABLE Record ADD CONSTRAINT FK_Record_0 FOREIGN KEY (projectid) REFERENCES
 
 
 ALTER TABLE Item ADD CONSTRAINT FK_Item_0 FOREIGN KEY (recordid,projectid) REFERENCES Record (id,projectid);
+
+
+INSERT INTO Project
+VALUES
+(  '1',
+   'プロジェクトX',
+   'aaa',
+   'bbb2002/3/31'
+),
+(  '2',
+   'レビュー記録表管理ツールプロジェクト',
+   'bbb',
+   'bbb2002/3/31'
+),
+;
 
