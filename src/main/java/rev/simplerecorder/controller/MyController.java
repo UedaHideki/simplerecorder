@@ -50,14 +50,8 @@ public class MyController {
    @GetMapping("/list")
    public String list(Model model) {
 	   
-	   List<String> listProject = daoProject.getAllProjects();
-	   List<FMProject> r2 = new ArrayList<>();
-	   for (String p : listProject) {
-		   FMProject fmproject = new FMProject();
-		   fmproject.setName(p);
-		   r2.add(fmproject);
-	   }	   
-	   model.addAttribute("fmprojects", r2);
+	   List<FMProject> listProject = daoProject.getAllProjects();
+	   model.addAttribute("fmprojects", listProject);
 	   return "list";
    }
    @GetMapping("/list/project")

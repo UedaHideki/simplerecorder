@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import rev.simplerecorder.model.FMProject;
+
 @Repository
 public class DAOProject {
 
@@ -21,13 +23,19 @@ public class DAOProject {
 		return jt.queryForObject(sql, Integer.class);
 	}
 
-	public List<String> getAllProjects() {
-		String sql = "SELECT name FROM Project";
+	public List<FMProject> getAllProjects() {
+		String sql = "SELECT id, name, no, description FROM Project";
 		List<Map<String, Object>> resultList = jt.queryForList(sql);
-		List<String>  ret = new ArrayList<>();
+		List<FMProject>  ret = new ArrayList<>();
 		for(Map<String, Object> result : resultList) {
-			String name = (String) result.get("name");
-			ret.add(name);
+			FMProject fmproject = new FMProject();
+			//String name = (String) result.get("name");
+			fmproject.setId((int) result.get("id")) ;
+			fmproject.setName((String) result.get("name"));
+			fmproject.setNo((String) result.get("no")) ;
+			fmproject.setDescription((String) result.get("description")) ;
+
+			ret.add(fmproject);
 		}
 		System.out.println("** getAllProjects");
 		System.out.println(ret);
