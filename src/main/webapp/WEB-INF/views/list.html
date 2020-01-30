@@ -15,6 +15,7 @@
  </tr>
  <tr th:each="project : ${fmprojects}">
   <td><input type="submit" th:field="*{project.id}"></td>
+  <td><a href="#" th:href="'project/'+${project.id}">○</a>
   <td th:text="${project.id}">id</td>
   <td th:text="${project.name}">projectXX</td>
   <td th:text="${project.no}">no</td>

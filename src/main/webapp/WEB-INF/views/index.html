@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-
 <title>BORAJI.COM</title>
 </head>
 <body>
    <h1>日本語Spring MVC + Thymeleaf  Hello World example</h1>
    <p th:text="${message}"></p>
+   <p th:text="'abc'">ABC</p>
+   <p th:text="10+10">ABC</p>
+   <p th:text="true">ABC</p>
+   <p th:text="'a'+10">ABC</p>
+   <button name="name" value="value"></button>
+   <form action="a" method="get">
+   <input name="name1"></input>
+   <input type="submit" name="x" value="1"></input>
+   <input type="submit" name="x" value="2"></input>
+   <input type="submit" name="y" value="3"></input>
+   </form>
+   <form action="a" method="post">
+   <input name="name2"></input>
+   <input type="submit"></input>
+   <a href="list">list</a>
+   </form>
 </body>
 </html>

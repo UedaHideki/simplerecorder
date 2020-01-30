@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import rev.simplerecorder.model.FMProject;
+import rev.simplerecorder.model.MItem;
+import rev.simplerecorder.model.MProject;
+import rev.simplerecorder.model.MRecord;
 
 @Repository
 public class DAOProject {
@@ -23,13 +25,12 @@ public class DAOProject {
 		return jt.queryForObject(sql, Integer.class);
 	}
 
-	public List<FMProject> getAllProjects() {
+	public List<MProject> getAllProjects() {
 		String sql = "SELECT id, name, no, description FROM Project";
 		List<Map<String, Object>> resultList = jt.queryForList(sql);
-		List<FMProject>  ret = new ArrayList<>();
+		List<MProject>  ret = new ArrayList<>();
 		for(Map<String, Object> result : resultList) {
-			FMProject fmproject = new FMProject();
-			//String name = (String) result.get("name");
+			MProject fmproject = new MProject();
 			fmproject.setId((int) result.get("id")) ;
 			fmproject.setName((String) result.get("name"));
 			fmproject.setNo((String) result.get("no")) ;
@@ -37,8 +38,48 @@ public class DAOProject {
 
 			ret.add(fmproject);
 		}
-		System.out.println("** getAllProjects");
-		System.out.println(ret);
 		return ret;
 	}
+	
+	public List<MRecord> getRecords(int projectID) {
+		System.out.println("** getRecoreds");
+		System.out.println(projectID);
+		
+		String sql = "SELECT id, projectid, phase, target, start_date, end_date, status FROM Record WHERE projectid=?";
+		List<Map<String, Object>> resultList = jt.queryForList(sql, ""+projectID);		
+		List<MRecord>  ret = new ArrayList<>();
+		for(Map<String, Object> result : resultList) {
+			MRecord rec = new MRecord();
+			rec.setId((int)result.get("id"));
+			rec.setProjectId((int)result.get("projectid"));
+			rec.setPhase((String)result.get("phase"));
+			rec.setTarget((String)result.get("target"));
+			//rec.setStartDate((String)result.get("start_date")); date cant be cast to string
+			//rec.setEndDate((String)result.get("end_date"));
+			rec.setStatus((String)result.get("status"));
+			ret.add(rec);
+			System.out.println("***");
+			System.out.println(rec.getPhase());	
+		}
+		return ret;
+	}
+	
+	public List<MItem> getItem(int projectID, int recordID) {
+		String sql = "SELECT * FROM Item WHERE projectid=? AND recordid=?";
+		Object[] args = new Object[] {""+projectID, ""+recordID};
+		List<Map<String, Object>> resultList = jt.queryForList(sql, args);		
+		List<MItem>  ret = new ArrayList<>();
+		for(Map<String, Object> result : resultList) {
+			MItem item = new MItem();
+			item.setId((int)result.get("id"));
+			// todo
+			item.setDescription((String)result.get("description"));
+			ret.add(item);
+		}
+		return ret;
+		
+		
+	}
+	
+	
 }

@@ -12,8 +12,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import rev.simplerecorder.model.FMProject;
+import rev.simplerecorder.model.MItem;
+import rev.simplerecorder.model.MProject;
+import rev.simplerecorder.model.MRecord;
 import rev.simplerecorder.repository.DAOProject;
 
 @Controller
@@ -47,17 +51,46 @@ public class MyController {
       return "index";
    }
    
+   @GetMapping("/a")
+   public String a() {
+	   System.out.println("**get a");
+	   return "index";
+   }
+   @PostMapping("/a")
+   public String b() {
+	   System.out.println("**post a");
+	   return "index";
+   }
+   
+   
    @GetMapping("/list")
    public String list(Model model) {
 	   
-	   List<FMProject> listProject = daoProject.getAllProjects();
+	   List<MProject> listProject = daoProject.getAllProjects();
 	   model.addAttribute("fmprojects", listProject);
 	   return "list";
    }
-   @GetMapping("/list/project")
-   public String project(Model model) {
+   
+   @GetMapping("/project/{projectID}")
+   public String project(Model model
+		                 ,@PathVariable String projectID) {
+	   
+	   List<MRecord> listRecord = daoProject.getRecords( Integer.parseInt(projectID));
+	   model.addAttribute("projectid", projectID);
+	   model.addAttribute("records", listRecord);	   
 	   return "project";
    }
+   
+   @GetMapping("/item/{projectID}/{recordID}")
+   public String item(Model model
+		             ,@PathVariable String projectID
+		             ,@PathVariable String recordID) {
+	   List<MItem> listItem = daoProject.getItem(Integer.parseInt(projectID), Integer.parseInt(recordID));
+	   model.addAttribute("items", listItem);
+	   
+	   return "item";
+   }
+   
    @GetMapping("/list/project/record")
    public String record(Model model) {
 	   return "record";

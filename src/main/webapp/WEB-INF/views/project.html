@@ -11,8 +11,11 @@
  <tr>
   <th>記録表一覧</th>
  </tr>
- <tr>
-  <td>XX記録表</td>
+ <tr th:each="record : ${records}">
+  <td><a href="#" th:href="'../item/'+${projectid}+'/'+${record.id}">○</a>
+  <td th:text="${record.id}">id</td>
+  <td th:text="${record.phase}">projectXX</td>
+  <td th:text="${record.target}">target</td>
  </tr>
 </table>
 </body>

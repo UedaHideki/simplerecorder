@@ -37,8 +37,8 @@ CREATE TABLE Item (
  isapplied CHAR(10),
  reply VARCHAR(255),
  reply_date DATE,
- conforrim CHAR(10),
- confirm_persion VARCHAR(255),
+ confirm CHAR(10),
+ confirm_person VARCHAR(255),
  confirm_date DATE,
  status CHAR(10)
 );
@@ -65,4 +65,31 @@ VALUES
    'bbb2002/3/31'
 ),
 ;
+
+INSERT INTO Record
+VALUES
+(  '1',
+   '1',
+   '要件定義',
+   'プロジェクト計画書',
+   '2020-3-31',
+   '2020-4-30',
+   '完了'
+);
+
+INSERT INTO Item
+VALUES
+(  '1',
+   '1',   
+   '1',
+   '○○が××である。',
+   'Taro',
+   '採用',
+   '××は△である。',
+   '2020-4-30',
+   '△はAである。',
+   'Taro',
+   '2020-4-30',
+   '済'
+);
 

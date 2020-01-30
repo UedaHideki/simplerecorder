@@ -1,6 +1,6 @@
 package rev.simplerecorder.model;
 
-public class FMProject {
+public class MProject {
 	
 	private int id;
 	private String name;
