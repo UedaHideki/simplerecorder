@@ -41,6 +41,34 @@ public class DAOProject {
 		return ret;
 	}
 	
+	public MProject getProject(int projectID) {
+		String sql = "SELECT * FROM Project WHERE id=?";
+		Map<String, Object> result = jt.queryForMap(sql, ""+projectID);
+		MProject fmproject = new MProject();
+		fmproject.setId((int) result.get("id")) ;
+		fmproject.setName((String) result.get("name"));
+		fmproject.setNo((String) result.get("no")) ;
+		fmproject.setDescription((String) result.get("description")) ;
+		return fmproject;
+	}
+	
+
+	public void insertProject(MProject project) {
+		
+		String sql = "INSERT INTO Project(name, no, description) VALUES(?,?,?)";		
+		jt.update(sql, project.getName(), project.getNo(), project.getDescription());
+		return;
+	}
+	
+	public void updateProject(MProject project) {
+		String sql = "UPDATE Project SET name=?, no=?, description=? WHERE id=?";
+		
+		jt.update(sql, project.getName(), project.getNo(), project.getDescription(), project.getId());
+		
+		return;
+	}
+		
+	
 	public List<MRecord> getRecords(int projectID) {
 		System.out.println("** getRecoreds");
 		System.out.println(projectID);
@@ -77,8 +105,6 @@ public class DAOProject {
 			ret.add(item);
 		}
 		return ret;
-		
-		
 	}
 	
 	

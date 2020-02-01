@@ -6,7 +6,7 @@ CREATE TABLE Note (
 
 
 CREATE TABLE Project (
- id INT NOT NULL,
+ id INT NOT NULL AUTO_INCREMENT,
  name VARCHAR(255),
  no VARCHAR(255),
  description VARCHAR(255)

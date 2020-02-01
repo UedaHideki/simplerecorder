@@ -11,9 +11,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import rev.simplerecorder.model.MItem;
 import rev.simplerecorder.model.MProject;
@@ -70,6 +72,42 @@ public class MyController {
 	   model.addAttribute("fmprojects", listProject);
 	   return "list";
    }
+   
+   @GetMapping("/projectedit")
+   public String editProject(Model model, @RequestParam String edit) {
+	   System.out.println("**editProjedt");
+	   System.out.println(edit);
+	   
+	   int projectId = Integer.parseInt(edit);
+	   MProject project = daoProject.getProject(projectId);
+	   model.addAttribute("project", project);
+	   model.addAttribute("type", "edit");
+	   return "editproject";
+   }
+   
+   @GetMapping("/newproject")
+   public String newproject(Model model) {
+	   MProject project = new MProject();
+	   model.addAttribute("project", project);
+	   model.addAttribute("type", "new");
+	   return "editproject";
+   }
+   
+   @PostMapping("/editproject")
+   public String editcompleteProject(Model model, @Validated MProject project, @RequestParam String edit) {
+	   System.out.println("**Post editcompleteProject");
+	   System.out.println(edit);
+	   System.out.println("name: " + project.getName());
+	   System.out.println("id: " + project.getId());
+	   if(edit.equals("new")) {
+		   daoProject.insertProject(project);
+	   }
+	   else {
+		   daoProject.updateProject(project);
+	   }
+	   return "redirect:list";
+   }
+	   
    
    @GetMapping("/project/{projectID}")
    public String project(Model model

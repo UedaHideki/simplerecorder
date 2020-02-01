@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>プロジェクト編集</title>
+</head>
+<body>
+<form method="post" action="editproject" accept-charset="UTF-8">
+<input type="hidden" name="id" th:value="${project.id}">
+<p>プロジェクト名</p>
+<input type="text" name="name" th:value="${project.name}">
+<p>説明</p>
+<input type="text" name="description" th:value="${project.description}">
+<div th:if="${type} eq 'new'">
+<button type="submit" name="edit" value="new">新規作成</button>
+</div>
+<div th:if="${type} eq 'edit'">
+<button type="submit" name="edit" value="edit">編集</button>
+</div>
+<button type="submit" name="edit" value="cancel">キャンセル</button>
+
+</form>
+</body>
+</html>
