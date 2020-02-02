@@ -6,13 +6,21 @@
 </head>
 <body>
 <h1>レビュー指摘一覧画面</h1>
+
+<form>
+<button type="submit" formaction="newitem">新規作成</button>
+<input type="hidden" name="projectid" th:value="${projectid}">
+<input type="hidden" name="recordid" th:value="${recordid}">
+
 <table>
- <caption>指摘一覧</caption>
  <tr>
  <tr th:each="item : ${items}">
   <td th:text="${item.id}">id</td>
   <td th:text="${item.description}">description</td>
+  <td><button type="submit"  name="edit" th:value="${item.id}" formaction="itemedit">編集</button></td>
+
  </tr>
 </table>
+</form>
 </body>
 </html>

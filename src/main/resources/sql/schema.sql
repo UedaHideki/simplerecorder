@@ -16,7 +16,7 @@ ALTER TABLE Project ADD CONSTRAINT PK_Project PRIMARY KEY (id);
 
 
 CREATE TABLE Record (
- id INT NOT NULL,
+ id INT NOT NULL AUTO_INCREMENT,
  projectid INT NOT NULL,
  phase CHAR(10),
  target VARCHAR(255),
@@ -31,7 +31,7 @@ ALTER TABLE Record ADD CONSTRAINT PK_Record PRIMARY KEY (id,projectid);
 CREATE TABLE Item (
  recordid INT NOT NULL,
  projectid INT NOT NULL,
- id INT NOT NULL,
+ id INT NOT NULL AUTO_INCREMENT,
  description VARCHAR(255),
  reviewer_person VARCHAR(255),
  isapplied CHAR(10),

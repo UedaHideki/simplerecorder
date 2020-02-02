@@ -92,7 +92,46 @@ public class DAOProject {
 		return ret;
 	}
 	
-	public List<MItem> getItem(int projectID, int recordID) {
+	public MRecord getRecord(int projectID, int recID) {
+		System.out.println("** getRecored");
+		System.out.println(projectID);
+		
+		String sql = "SELECT * FROM Record WHERE projectid=? AND id=?";
+		Map<String, Object> result = jt.queryForMap(sql, ""+projectID, ""+recID);		
+		MRecord ret = new MRecord();
+		ret.setId((int)result.get("id"));
+		ret.setProjectId((int)result.get("projectid"));
+		ret.setPhase((String)result.get("phase"));
+		ret.setTarget((String)result.get("target"));
+		//rec.setStartDate((String)result.get("start_date")); date cant be cast to string
+		//rec.setEndDate((String)result.get("end_date"));
+		ret.setStatus((String)result.get("status"));
+		System.out.println("***");
+		System.out.println(ret.getPhase());	
+		return ret;
+	}
+	
+	public void insertRecord(MRecord record, int projectID) {
+		
+		String sql = "INSERT INTO Record(phase, target, status, projectid) VALUES(?,?,?,?)";		
+		jt.update(sql, record.getPhase(), record.getTarget(), record.getStatus(), ""+projectID);
+		return;
+	}
+	public void updateRecord(MRecord rec, int projectID) {
+		String sql = "UPDATE Record SET phase=?, target=?, status=? WHERE projectId=? AND id=?";
+		
+		jt.update(sql, rec.getPhase()
+				     , rec.getTarget()
+				     , rec.getStatus()
+				     , rec.getProjectId()
+				     , rec.getId()
+				     );
+		
+		return;
+	}
+	
+
+	public List<MItem> getItems(int projectID, int recordID) {
 		String sql = "SELECT * FROM Item WHERE projectid=? AND recordid=?";
 		Object[] args = new Object[] {""+projectID, ""+recordID};
 		List<Map<String, Object>> resultList = jt.queryForList(sql, args);		
@@ -106,6 +145,40 @@ public class DAOProject {
 		}
 		return ret;
 	}
+
+	public MItem getItem(int projectID, int recordID, int itemID) {
+		String sql = "SELECT * FROM Item WHERE projectid=? AND recordid=? AND id=?";
+		Object[] args = new Object[] {""+projectID, ""+recordID, ""+itemID};
+		Map<String, Object> result = jt.queryForMap(sql, args);		
+		MItem  ret = new MItem();
+		ret.setId((int)result.get("id"));
+		ret.setProjectId((int)result.get("projectid"));
+		ret.setRecoredId((int)result.get("recordid"));
+		// todo
+		ret.setDescription((String)result.get("description"));
+		return ret;
+	}
 	
+	public void insertItem(MItem item, int projectID, int recordID) {
+		
+		String sql = "INSERT INTO Item(description, projectid, recordid) VALUES(?,?,?)";		
+		jt.update(sql, item.getDescription()
+				     , ""+projectID
+				     , ""+recordID
+				     );
+		return;
+	}
 	
+	public void updateItem(MItem item, int projectID, int recordID) {
+		String sql = "UPDATE Item SET description=? WHERE projectid=? AND recordid =? AND id=?";
+		
+		jt.update(sql, item.getDescription()
+				     , item.getProjectId()
+				     , item.getRecoredId()
+				     , item.getId()
+				     );
+		
+		return;
+	}
+		
 }
