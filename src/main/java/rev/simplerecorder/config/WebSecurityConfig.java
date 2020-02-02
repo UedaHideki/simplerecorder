@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @EnableWebSecurity(debug=true)
 @Configuration
@@ -37,6 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.httpBasic();
 		http.csrf().disable();
+		
+		// formからの文字が対応できないために挿入
+		 CharacterEncodingFilter filter = new CharacterEncodingFilter();
+	        filter.setEncoding("UTF-8");
+	        filter.setForceEncoding(true);
+	        http.addFilterBefore(filter, CsrfFilter.class);
+	        
 	}
 	
 }

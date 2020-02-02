@@ -93,8 +93,8 @@ public class MyController {
 	   return "editproject";
    }
    
-   @PostMapping("/editproject")
-   public String editcompleteProject(Model model, @Validated MProject project, @RequestParam String edit) {
+   @PostMapping(path="/editproject")
+   public String editcompleteProject(Model model, MProject project, @RequestParam String edit) {
 	   System.out.println("**Post editcompleteProject");
 	   System.out.println(edit);
 	   System.out.println("name: " + project.getName());
