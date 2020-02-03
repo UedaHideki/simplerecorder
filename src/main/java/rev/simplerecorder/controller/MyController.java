@@ -185,8 +185,8 @@ public class MyController {
    
    @GetMapping("/newitem")
    public String newItem(Model model, @RequestParam String projectid, @RequestParam String recordid) {
-	   MRecord record = new MRecord();
-	   model.addAttribute("record", record);
+	   MItem item = new MItem();
+	   model.addAttribute("item", item);
 	   model.addAttribute("type", "new");
 	   model.addAttribute("projectid", projectid);
 	   model.addAttribute("recordid", recordid);

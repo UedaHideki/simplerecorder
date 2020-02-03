@@ -178,8 +178,8 @@ public class DAOProject {
 		String sql = "UPDATE Item SET description=? WHERE projectid=? AND recordid =? AND id=?";
 		
 		jt.update(sql, item.getDescription()
-				     , item.getProjectId()
-				     , item.getRecoredId()
+				     , ""+projectID
+				     , ""+recordID
 				     , item.getId()
 				     );
 		
