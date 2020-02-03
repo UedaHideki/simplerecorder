@@ -36,20 +36,6 @@ public class MyController {
 
       model.addAttribute("message", "Hello Spring MVC 5!こんにちは");
       
-      int a = daoProject.countProject();
-      System.out.println(a);
-      String sql="SELECT * FROM record";
-     
-      SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", 1);
-      String result =  n.queryForObject(
-        "SELECT name FROM project WHERE ID = :id", namedParameters, String.class);
-
-      //Map namedParameters = Collections.singletonMap("name", "name");
-      //List<String> result = n.queryForList(sql,namedParameters,String.class);
-      //List<String> result = n.queryForList(sql,String.class);
-      //List<Map<String, Object>> result = n.queryForList(sql);
-      
-      System.out.println(result);
       return "index";
    }
    
