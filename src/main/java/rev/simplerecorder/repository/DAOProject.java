@@ -1,5 +1,6 @@
 package rev.simplerecorder.repository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,8 @@ public class DAOProject {
 			rec.setProjectId((int)result.get("projectid"));
 			rec.setPhase((String)result.get("phase"));
 			rec.setTarget((String)result.get("target"));
+			rec.setStartDate(date2string(result.get("start_date")));
+			rec.setEndDate(date2string(result.get("end_date")));
 			//rec.setStartDate((String)result.get("start_date")); date cant be cast to string
 			//rec.setEndDate((String)result.get("end_date"));
 			rec.setStatus((String)result.get("status"));
@@ -103,7 +106,8 @@ public class DAOProject {
 		ret.setProjectId((int)result.get("projectid"));
 		ret.setPhase((String)result.get("phase"));
 		ret.setTarget((String)result.get("target"));
-		//rec.setStartDate((String)result.get("start_date")); date cant be cast to string
+		ret.setStartDate(date2string(result.get("start_date")));
+		ret.setEndDate(date2string(result.get("end_date")));
 		//rec.setEndDate((String)result.get("end_date"));
 		ret.setStatus((String)result.get("status"));
 		System.out.println("***");
@@ -184,6 +188,11 @@ public class DAOProject {
 				     );
 		
 		return;
+	}
+	
+	private String date2string(Object d) {
+		Date d2 = (Date)d;
+		return d2.toString();
 	}
 		
 }
