@@ -118,12 +118,17 @@ public class DAOProject {
 		return;
 	}
 	public void updateRecord(MRecord rec, int projectID) {
-		String sql = "UPDATE Record SET phase=?, target=?, status=? WHERE projectId=? AND id=?";
+		
+		System.out.println("**updateRecord");
+		System.out.println("projectID: "+ projectID);
+		System.out.println("r.projectID: "+rec.getProjectId());
+		
+		String sql = "UPDATE Record SET phase=?, target=?, status=? WHERE projectid=? AND id=?";
 		
 		jt.update(sql, rec.getPhase()
 				     , rec.getTarget()
 				     , rec.getStatus()
-				     , rec.getProjectId()
+				     , ""+projectID
 				     , rec.getId()
 				     );
 		
