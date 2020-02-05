@@ -18,9 +18,7 @@ public class DAOProject {
 
 	@Autowired
 	private JdbcTemplate jt;
-	
-	
-	
+
 	public int countProject() {
 		String sql = "SELECT COUNT(id) FROM Project";
 		return jt.queryForObject(sql, Integer.class);
@@ -31,13 +29,13 @@ public class DAOProject {
 		List<Map<String, Object>> resultList = jt.queryForList(sql);
 		List<MProject>  ret = new ArrayList<>();
 		for(Map<String, Object> result : resultList) {
-			MProject fmproject = new MProject();
-			fmproject.setId((int) result.get("id")) ;
-			fmproject.setName((String) result.get("name"));
-			fmproject.setNo((String) result.get("no")) ;
-			fmproject.setDescription((String) result.get("description")) ;
+			MProject proj = new MProject();
+			proj.setId((int) result.get("id")) ;
+			proj.setName((String) result.get("name"));
+			proj.setNo((String) result.get("no")) ;
+			proj.setDescription((String) result.get("description")) ;
 
-			ret.add(fmproject);
+			ret.add(proj);
 		}
 		return ret;
 	}
@@ -45,12 +43,12 @@ public class DAOProject {
 	public MProject getProject(int projectID) {
 		String sql = "SELECT * FROM Project WHERE id=?";
 		Map<String, Object> result = jt.queryForMap(sql, ""+projectID);
-		MProject fmproject = new MProject();
-		fmproject.setId((int) result.get("id")) ;
-		fmproject.setName((String) result.get("name"));
-		fmproject.setNo((String) result.get("no")) ;
-		fmproject.setDescription((String) result.get("description")) ;
-		return fmproject;
+		MProject proj = new MProject();
+		proj.setId((int) result.get("id")) ;
+		proj.setName((String) result.get("name"));
+		proj.setNo((String) result.get("no")) ;
+		proj.setDescription((String) result.get("description")) ;
+		return proj;
 	}
 	
 
@@ -71,8 +69,6 @@ public class DAOProject {
 		
 	
 	public List<MRecord> getRecords(int projectID) {
-		System.out.println("** getRecoreds");
-		System.out.println(projectID);
 		
 		String sql = "SELECT id, projectid, phase, target, start_date, end_date, status FROM Record WHERE projectid=?";
 		List<Map<String, Object>> resultList = jt.queryForList(sql, ""+projectID);		
@@ -85,19 +81,13 @@ public class DAOProject {
 			rec.setTarget((String)result.get("target"));
 			rec.setStartDate(date2string(result.get("start_date")));
 			rec.setEndDate(date2string(result.get("end_date")));
-			//rec.setStartDate((String)result.get("start_date")); date cant be cast to string
-			//rec.setEndDate((String)result.get("end_date"));
 			rec.setStatus((String)result.get("status"));
 			ret.add(rec);
-			System.out.println("***");
-			System.out.println(rec.getPhase());	
 		}
 		return ret;
 	}
 	
 	public MRecord getRecord(int projectID, int recID) {
-		System.out.println("** getRecored");
-		System.out.println(projectID);
 		
 		String sql = "SELECT * FROM Record WHERE projectid=? AND id=?";
 		Map<String, Object> result = jt.queryForMap(sql, ""+projectID, ""+recID);		
@@ -108,10 +98,7 @@ public class DAOProject {
 		ret.setTarget((String)result.get("target"));
 		ret.setStartDate(date2string(result.get("start_date")));
 		ret.setEndDate(date2string(result.get("end_date")));
-		//rec.setEndDate((String)result.get("end_date"));
 		ret.setStatus((String)result.get("status"));
-		System.out.println("***");
-		System.out.println(ret.getPhase());	
 		return ret;
 	}
 	
@@ -122,11 +109,7 @@ public class DAOProject {
 		return;
 	}
 	public void updateRecord(MRecord rec, int projectID) {
-		
-		System.out.println("**updateRecord");
-		System.out.println("projectID: "+ projectID);
-		System.out.println("r.projectID: "+rec.getProjectId());
-		
+				
 		String sql = "UPDATE Record SET phase=?, target=?, status=? WHERE projectid=? AND id=?";
 		
 		jt.update(sql, rec.getPhase()
@@ -148,7 +131,6 @@ public class DAOProject {
 		for(Map<String, Object> result : resultList) {
 			MItem item = new MItem();
 			item.setId((int)result.get("id"));
-			// todo
 			item.setDescription((String)result.get("description"));
 			ret.add(item);
 		}
@@ -163,7 +145,6 @@ public class DAOProject {
 		ret.setId((int)result.get("id"));
 		ret.setProjectId((int)result.get("projectid"));
 		ret.setRecoredId((int)result.get("recordid"));
-		// todo
 		ret.setDescription((String)result.get("description"));
 		return ret;
 	}
