@@ -39,36 +39,21 @@ public class MyController {
       return "index";
    }
    
-   @GetMapping("/a")
-   public String a() {
-	   System.out.println("**get a");
-	   return "index";
-   }
-   @PostMapping("/a")
-   public String b() {
-	   System.out.println("**post a");
-	   return "index";
-   }
-   
-   
    @GetMapping("/list")
    public String list(Model model) {
 	   
 	   List<MProject> listProject = daoProject.getAllProjects();
 	   model.addAttribute("fmprojects", listProject);
-	   return "list";
+	   return "show_projects";
    }
    
    @GetMapping("/projectedit")
    public String editProject(Model model, @RequestParam String edit) {
-	   System.out.println("**editProjedt");
-	   System.out.println(edit);
-	   
 	   int projectId = Integer.parseInt(edit);
 	   MProject project = daoProject.getProject(projectId);
 	   model.addAttribute("project", project);
 	   model.addAttribute("type", "edit");
-	   return "editproject";
+	   return "edit_project";
    }
    
    @GetMapping("/newproject")
@@ -76,22 +61,18 @@ public class MyController {
 	   MProject project = new MProject();
 	   model.addAttribute("project", project);
 	   model.addAttribute("type", "new");
-	   return "editproject";
+	   return "edit_project";
    }
    
    @PostMapping(path="/editproject")
    public String editcompleteProject(Model model, MProject project, @RequestParam String edit) {
-	   System.out.println("**Post editcompleteProject");
-	   System.out.println(edit);
-	   System.out.println("name: " + project.getName());
-	   System.out.println("id: " + project.getId());
 	   if(edit.equals("new")) {
 		   daoProject.insertProject(project);
 	   }
 	   else {
 		   daoProject.updateProject(project);
 	   }
-	   return "redirect:project?projecctID="+edit;
+	   return "redirect:list";
    }
 	   
    
@@ -102,13 +83,11 @@ public class MyController {
 	   List<MRecord> listRecord = daoProject.getRecords( Integer.parseInt(projectid));
 	   model.addAttribute("projectid", projectid);
 	   model.addAttribute("records", listRecord);	   
-	   return "project";
+	   return "show_records";
    }
    
    @GetMapping("/recordedit")
    public String editRecord(Model model, @RequestParam String edit, @RequestParam String projectid) {
-	   System.out.println("**editRecord");
-	   System.out.println(edit);
 	   
 	   int recordId = Integer.parseInt(edit);
 	   int projectId = Integer.parseInt(projectid);
@@ -116,7 +95,7 @@ public class MyController {
 	   model.addAttribute("record", record);
 	   model.addAttribute("type", "edit");
 	   model.addAttribute("projectid", projectid);
-	   return "editrecord";
+	   return "edit_record";
    }
    
    @GetMapping("/newrecord")
@@ -125,15 +104,11 @@ public class MyController {
 	   model.addAttribute("record", record);
 	   model.addAttribute("type", "new");
 	   model.addAttribute("projectid", projectid);
-	   return "editrecord";
+	   return "edit_record";
    }
    
    @PostMapping(path="/editrecord")
    public String editcompleteRecord(Model model, MRecord record, @RequestParam String edit, @RequestParam String projectid) {
-	   System.out.println("**Post compeleRecord");
-	   System.out.println(edit);
-	   System.out.println("phase: " + record.getPhase());
-	   System.out.println("id: " + record.getId());
 	   if(edit.equals("new")) {
 		   daoProject.insertRecord(record, Integer.parseInt(projectid));
 	   }
@@ -151,13 +126,11 @@ public class MyController {
 	   model.addAttribute("items", listItem);
 	   model.addAttribute("projectid", projectid);
 	   model.addAttribute("recordid", recordid); 
-	   return "item";
+	   return "show_items";
    }
    
    @GetMapping("/itemedit")
    public String editItem(Model model, @RequestParam String edit, @RequestParam String projectid, @RequestParam String recordid) {
-	   System.out.println("**editItem");
-	   System.out.println(edit);
 	   int itemId = Integer.parseInt(edit);
 	   int projectId = Integer.parseInt(projectid);
 	   int recordId = Integer.parseInt(recordid);
@@ -166,7 +139,7 @@ public class MyController {
 	   model.addAttribute("type", "edit");
 	   model.addAttribute("projectid", projectid);
 	   model.addAttribute("recordid", recordid);
-	   return "edititem";
+	   return "edit_item";
    }
    
    @GetMapping("/newitem")
@@ -176,14 +149,11 @@ public class MyController {
 	   model.addAttribute("type", "new");
 	   model.addAttribute("projectid", projectid);
 	   model.addAttribute("recordid", recordid);
-	   return "edititem";
+	   return "edit_item";
    }
    
    @PostMapping(path="/edititem")
    public String editcompleteItem(Model model, MItem item, @RequestParam String edit, @RequestParam String projectid, @RequestParam String recordid) {
-	   System.out.println("**Post compeleitem");
-	   System.out.println(edit);
-	   System.out.println("description: " + item.getDescription());
 	   if(edit.equals("new")) {
 		   daoProject.insertItem(item, Integer.parseInt(projectid), Integer.parseInt(recordid));
 	   }
@@ -193,12 +163,4 @@ public class MyController {
 	   return "redirect:item?projectid="+projectid+"&recordid="+recordid;
    }
    
-   @GetMapping("/list/project/record")
-   public String record(Model model) {
-	   return "record";
-   }
-   @GetMapping("/list/project/record/item")
-   public String item(Model model) {
-	   return "item";
-   }
 }
