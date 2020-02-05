@@ -8,9 +8,9 @@
 <h1>レビュー指摘一覧画面</h1>
 
 <form>
-<button type="submit" formaction="list">プロジェクト一覧に戻る</button>
-<button type="submit" formaction="project?projectid=1" th:formaction="'project?projectid='+${projectid}">記録表一覧に戻る</button>
-<button type="submit" formaction="newitem">新規作成</button>
+<button type="submit" formaction="show_projects">プロジェクト一覧に戻る</button>
+<button type="submit" formaction="show_recoreds?projectid=1" th:formaction="'show_records?projectid='+${projectid}">記録表一覧に戻る</button>
+<button type="submit" formaction="edit_newitem">新規作成</button>
 <input type="hidden" name="projectid" th:value="${projectid}">
 <input type="hidden" name="recordid" th:value="${recordid}">
 
@@ -19,7 +19,7 @@
  <tr th:each="item : ${items}">
   <td th:text="${item.id}">id</td>
   <td th:text="${item.description}">description</td>
-  <td><button type="submit"  name="edit" th:value="${item.id}" formaction="itemedit">編集</button></td>
+  <td><button type="submit"  name="edit" th:value="${item.id}" formaction="edit_item">編集</button></td>
 
  </tr>
 </table>

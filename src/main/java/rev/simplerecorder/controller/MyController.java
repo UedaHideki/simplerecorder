@@ -39,7 +39,7 @@ public class MyController {
       return "index";
    }
    
-   @GetMapping("/list")
+   @GetMapping("/show_projects")
    public String list(Model model) {
 	   
 	   List<MProject> listProject = daoProject.getAllProjects();
@@ -47,7 +47,7 @@ public class MyController {
 	   return "show_projects";
    }
    
-   @GetMapping("/projectedit")
+   @GetMapping("/edit_project")
    public String editProject(Model model, @RequestParam String edit) {
 	   int projectId = Integer.parseInt(edit);
 	   MProject project = daoProject.getProject(projectId);
@@ -56,7 +56,7 @@ public class MyController {
 	   return "edit_project";
    }
    
-   @GetMapping("/newproject")
+   @GetMapping("/edit_newproject")
    public String newproject(Model model) {
 	   MProject project = new MProject();
 	   model.addAttribute("project", project);
@@ -64,7 +64,7 @@ public class MyController {
 	   return "edit_project";
    }
    
-   @PostMapping(path="/editproject")
+   @PostMapping(path="/regist_project")
    public String editcompleteProject(Model model, MProject project, @RequestParam String edit) {
 	   if(edit.equals("new")) {
 		   daoProject.insertProject(project);
@@ -75,11 +75,11 @@ public class MyController {
 	   else {
 		   // do nothing
 	   }
-	   return "redirect:list";
+	   return "redirect:show_projects";
    }
 	   
    
-   @GetMapping("/project")
+   @GetMapping("/show_records")
    public String project(Model model
 		                 ,@RequestParam String projectid) {
 	   
@@ -89,7 +89,7 @@ public class MyController {
 	   return "show_records";
    }
    
-   @GetMapping("/recordedit")
+   @GetMapping("/edit_record")
    public String editRecord(Model model, @RequestParam String edit, @RequestParam String projectid) {
 	   
 	   int recordId = Integer.parseInt(edit);
@@ -101,7 +101,7 @@ public class MyController {
 	   return "edit_record";
    }
    
-   @GetMapping("/newrecord")
+   @GetMapping("/edit_newrecord")
    public String newRecord(Model model, @RequestParam String projectid) {
 	   MRecord record = new MRecord();
 	   model.addAttribute("record", record);
@@ -110,7 +110,7 @@ public class MyController {
 	   return "edit_record";
    }
    
-   @PostMapping(path="/editrecord")
+   @PostMapping(path="/regist_record")
    public String editcompleteRecord(Model model, MRecord record, @RequestParam String edit, @RequestParam String projectid) {
 	   if(edit.equals("new")) {
 		   daoProject.insertRecord(record, Integer.parseInt(projectid));
@@ -121,10 +121,10 @@ public class MyController {
 	   else {
 		   // do nothing
 	   }
-	   return "redirect:project?projectid="+projectid;
+	   return "redirect:show_records?projectid="+projectid;
    }
    
-   @GetMapping("/item")
+   @GetMapping("/show_items")
    public String item(Model model
 		             ,@RequestParam String projectid
 		             ,@RequestParam String recordid) {
@@ -135,7 +135,7 @@ public class MyController {
 	   return "show_items";
    }
    
-   @GetMapping("/itemedit")
+   @GetMapping("/edit_item")
    public String editItem(Model model, @RequestParam String edit, @RequestParam String projectid, @RequestParam String recordid) {
 	   int itemId = Integer.parseInt(edit);
 	   int projectId = Integer.parseInt(projectid);
@@ -148,7 +148,7 @@ public class MyController {
 	   return "edit_item";
    }
    
-   @GetMapping("/newitem")
+   @GetMapping("/edit_newitem")
    public String newItem(Model model, @RequestParam String projectid, @RequestParam String recordid) {
 	   MItem item = new MItem();
 	   model.addAttribute("item", item);
@@ -158,7 +158,7 @@ public class MyController {
 	   return "edit_item";
    }
    
-   @PostMapping(path="/edititem")
+   @PostMapping(path="/regist_item")
    public String editcompleteItem(Model model, MItem item, @RequestParam String edit, @RequestParam String projectid, @RequestParam String recordid) {
 	   if(edit.equals("new")) {
 		   daoProject.insertItem(item, Integer.parseInt(projectid), Integer.parseInt(recordid));
@@ -169,7 +169,7 @@ public class MyController {
 	   else {
 		   // do nothing
 	   }
-	   return "redirect:item?projectid="+projectid+"&recordid="+recordid;
+	   return "redirect:show_items?projectid="+projectid+"&recordid="+recordid;
    }
    
 }

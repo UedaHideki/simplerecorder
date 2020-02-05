@@ -7,22 +7,22 @@
 <body>
 <h1>レビュー記録表一覧画面</h1>
 <form>
-<button type="submit" formaction="list">プロジェクト一覧に戻る</button>
-<button type="submit" formaction="newrecord">新規作成</button>
+<button type="submit" formaction="show_projects">プロジェクト一覧に戻る</button>
+<button type="submit" formaction="edit_newrecord">新規作成</button>
 <input type="hidden" name="projectid" th:value="${projectid}">
 <table>
  <tr>
   <th>記録表一覧</th>
  </tr>
  <tr th:each="record : ${records}">
-  <td><a href="#" th:href="'item?projectid='+${projectid}+'&recordid='+${record.id}">○</a>
+  <td><a href="#" th:href="'show_items?projectid='+${projectid}+'&recordid='+${record.id}">○</a>
   <td th:text="${record.id}">id</td>
   <td th:text="${record.phase}">projectXX</td>
   <td th:text="${record.target}">target</td>
   <td th:text="${record.startDate}">開始日</td>
   <td th:text="${record.endDate}">終了日</td>
   
-  <td><button type="submit"  name="edit" th:value="${record.id}" formaction="recordedit">編集</button></td>
+  <td><button type="submit"  name="edit" th:value="${record.id}" formaction="edit_record">編集</button></td>
  
  </tr>
 </table>
