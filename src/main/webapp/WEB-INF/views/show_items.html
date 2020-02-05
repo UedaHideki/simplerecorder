@@ -8,6 +8,8 @@
 <h1>レビュー指摘一覧画面</h1>
 
 <form>
+<button type="submit" formaction="list">プロジェクト一覧に戻る</button>
+<button type="submit" formaction="project?projectid=1" th:formaction="'project?projectid='+${projectid}">記録表一覧に戻る</button>
 <button type="submit" formaction="newitem">新規作成</button>
 <input type="hidden" name="projectid" th:value="${projectid}">
 <input type="hidden" name="recordid" th:value="${recordid}">
