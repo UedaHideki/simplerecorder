@@ -69,8 +69,11 @@ public class MyController {
 	   if(edit.equals("new")) {
 		   daoProject.insertProject(project);
 	   }
-	   else {
+	   else if (edit.equals("modify")) {
 		   daoProject.updateProject(project);
+	   }
+	   else {
+		   // do nothing
 	   }
 	   return "redirect:list";
    }
@@ -112,8 +115,11 @@ public class MyController {
 	   if(edit.equals("new")) {
 		   daoProject.insertRecord(record, Integer.parseInt(projectid));
 	   }
-	   else {
+	   else if (edit.equals("modify")) {
 		   daoProject.updateRecord(record, Integer.parseInt(projectid));
+	   }
+	   else {
+		   // do nothing
 	   }
 	   return "redirect:project?projectid="+projectid;
    }
@@ -157,8 +163,11 @@ public class MyController {
 	   if(edit.equals("new")) {
 		   daoProject.insertItem(item, Integer.parseInt(projectid), Integer.parseInt(recordid));
 	   }
-	   else {
+	   else if (edit.equals("modify")) {
 		   daoProject.updateItem(item, Integer.parseInt(projectid), Integer.parseInt(recordid));
+	   }
+	   else {
+		   // do nothing
 	   }
 	   return "redirect:item?projectid="+projectid+"&recordid="+recordid;
    }
