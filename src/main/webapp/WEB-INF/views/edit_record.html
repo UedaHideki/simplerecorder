@@ -10,7 +10,17 @@
 <input type="hidden" name="id" th:value="${record.id}">
 <input type="hidden" name="projectid" th:value="${projectid}">
 <p>工程・フェーズ</p>
-<input type="text" name="phase" th:value="${record.phase}">
+
+<!--   
+<input type="text" name="phase" th:value="${record.phase}"> 
+-->
+
+<select id="phase" name="phase">
+<option th:each="p : ${phase}" th:value="${p.name}" th:selected="${p.isinit == true}" th:inline="text">
+[[${p.name}]]
+</option>
+</select>
+
 <p>対象</p>
 <input type="text" name="target" th:value="${record.target}">
 <p>状況</p>

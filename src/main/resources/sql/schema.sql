@@ -101,3 +101,37 @@ VALUES
    '済'
 );
 
+CREATE TABLE S_Phase (
+ id INT NOT NULL,
+ name VARCHAR(20) NOT NULL,
+ descriptioin VARCHAR(255),
+ ord INT NOT NULL,
+ initialvalue BOOL
+);
+
+INSERT INTO S_Phase
+VALUES
+(
+1,
+'要求定義',
+'要求定義',
+10,
+FALSE
+)
+,
+(
+2,
+'機能設計',
+'機能設計',
+20,
+FALSE
+)
+,
+(
+3,
+'未',
+'未決定',
+70,
+TRUE
+)
+;

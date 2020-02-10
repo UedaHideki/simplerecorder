@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import rev.simplerecorder.model.MItem;
 import rev.simplerecorder.model.MProject;
 import rev.simplerecorder.model.MRecord;
+import rev.simplerecorder.model.MSelection;
 import rev.simplerecorder.repository.DAOProject;
+import rev.simplerecorder.repository.DAOSelection;
 
 @Controller
 public class MyController {
@@ -30,6 +32,9 @@ public class MyController {
 
 	@Autowired
 	private DAOProject daoProject; 
+	
+	@Autowired
+	private DAOSelection daoSelection;
 
    @GetMapping("/")
    public String index(Model model) {
@@ -95,9 +100,11 @@ public class MyController {
 	   int recordId = Integer.parseInt(edit);
 	   int projectId = Integer.parseInt(projectid);
 	   MRecord record = daoProject.getRecord(projectId, recordId);
+	   List<MSelection> phase = daoSelection.getPhase();
 	   model.addAttribute("record", record);
 	   model.addAttribute("type", "edit");
 	   model.addAttribute("projectid", projectid);
+	   model.addAttribute("phase", phase);
 	   return "edit_record";
    }
    
